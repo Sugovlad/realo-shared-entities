@@ -33,6 +33,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            groupId = 'com.realo'
+            artifactId = 'shared-entities'
+            version = '0.0.1'
         }
     }
     repositories {
@@ -40,8 +43,8 @@ publishing {
             name = 'GitHubPackages'
             url = uri("https://maven.pkg.github.com/Sugovlad/realo-shared-entities")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
@@ -51,6 +54,19 @@ publishing {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.named('test') {
